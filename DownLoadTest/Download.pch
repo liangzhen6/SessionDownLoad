@@ -1,0 +1,24 @@
+//
+//  Download.pch
+//  DownLoadTest
+//
+//  Created by shenzhenshihua on 2016/11/17.
+//  Copyright © 2016年 shenzhenshihua. All rights reserved.
+//
+
+#ifndef Download_pch
+#define Download_pch
+
+
+//判断版本
+#define IOS_VERSION      [[[UIDevice currentDevice] systemVersion] floatValue]
+#define Screen_Frame     [[UIScreen mainScreen] bounds]
+#define Screen_Width     [[UIScreen mainScreen] bounds].size.width
+#define Screen_Height    [[UIScreen mainScreen] bounds].size.height
+
+
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* Download_pch */
