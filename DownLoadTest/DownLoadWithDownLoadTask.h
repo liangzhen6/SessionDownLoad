@@ -23,10 +23,11 @@ typedef NS_ENUM(NSInteger,DownloadTaskState) {
      DownloadTaskFailure
     
 };
+@class DownLoadWithDownLoadTask;
 
 @protocol DownLoadWithDownLoadTaskDelegate <NSObject>
 
-- (void)changeDownloadProgress:(float)progress;
+- (void)changeDownloadProgress:(float)progress andDownloadTask:(DownLoadWithDownLoadTask *)task;
 
 
 @end
@@ -37,6 +38,7 @@ typedef NS_ENUM(NSInteger,DownloadTaskState) {
 
 @property(nonatomic,assign)id <DownLoadWithDownLoadTaskDelegate>delegate;
 
+@property(nonatomic,assign)NSInteger tag;
 
 @property(nonatomic,copy)void(^block)(NSData *data,NSString*path);
 

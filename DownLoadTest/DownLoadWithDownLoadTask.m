@@ -105,8 +105,8 @@
 
     float progress = 1.0 * totalBytesWritten / totalBytesExpectedToWrite;
     
-    if ([self.delegate respondsToSelector:@selector(changeDownloadProgress:)]) {
-        [self.delegate changeDownloadProgress:progress];
+    if ([self.delegate respondsToSelector:@selector(changeDownloadProgress:andDownloadTask:)]) {
+        [self.delegate changeDownloadProgress:progress andDownloadTask:self];
     }
     NSLog(@"%f-----%lld----%lld----%lld",progress,totalBytesWritten,totalBytesExpectedToWrite,bytesWritten);
     

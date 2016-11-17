@@ -51,7 +51,7 @@
         DownloadModel * model = [[DownloadModel alloc] init];
         model.urlStr = str;
         model.task = task;
-        
+        task.tag = i;
         [self.dataSource addObject:model];
         
         if (i==0) {
