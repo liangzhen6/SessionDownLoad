@@ -25,6 +25,8 @@
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray * dataSource;
 
+@property(nonatomic,strong)DownloadManger * manger;
+
 @end
 
 @implementation ViewController
@@ -42,26 +44,29 @@
 
     
     NSArray * arr = @[@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4",@"https://framework.realtime.co/blog/img/ios10-video.mp4"];
-    DownloadManger * maner = [DownloadManger shareMager];
+    _manger = [DownloadManger shareMager];
+    
+    _manger.beMangerView = self.tableView;
+    
     for (int i = 0; i<arr.count; i++) {
         NSString * str = arr[i];
-        DownLoadWithDownLoadTask * task = [DownLoadWithDownLoadTask downLoadWithOperationQueue:maner.operationQueue andUrlStr:str];
-        [maner.tasks addObject:task];
+//        DownLoadWithDownLoadTask * task = [DownLoadWithDownLoadTask downLoadWithOperationQueue:maner.operationQueue andUrlStr:str];
+//        task.tag = i;
+//        [maner.tasks addObject:task]        
 
         DownloadModel * model = [[DownloadModel alloc] init];
         model.urlStr = str;
-        model.task = task;
-        task.tag = i;
+//        model.task = task;
+        model.tagNum = i;
         [self.dataSource addObject:model];
+        [_manger.tasks addObject:model];
         
-        if (i==0) {
-            [task resume];
-        }
+        
         
     }
     
     [self.tableView reloadData];
-    
+//    [maner startDownload];
 
 }
 
@@ -105,6 +110,11 @@
     }
 
     cell.model = _dataSource[indexPath.row];
+    
+    cell.block =^(DownloadModel * model){
+//        [self.manger.tasks addObject:model];
+        [self.manger changeDownloadWithDownloadModel:model];
+    };
     
     return  cell;
 

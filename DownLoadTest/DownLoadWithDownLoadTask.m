@@ -139,7 +139,7 @@ didFinishDownloadingToURL:(NSURL *)location {
         self.downloadState = DownloadTaskFailure;
     }else{
     //任务完成
-        
+        self.downloadState = DownloadTaskFinshed;
     
     }
     

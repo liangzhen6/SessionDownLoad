@@ -9,13 +9,14 @@
 #import "DownloadCell.h"
 #import "DownloadModel.h"
 #import "DownLoadWithDownLoadTask.h"
-@interface DownloadCell()<DownLoadWithDownLoadTaskDelegate>
+@interface DownloadCell()
 
-@property(nonatomic,strong)UIProgressView *progress;
+
 
 @property(nonatomic,getter=isLoading)BOOL loading;
 
 @property(nonatomic,strong)UIButton * btn;
+
 
 @end
 
@@ -47,24 +48,29 @@
     [_btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_btn];
     
-    [_btn setTitle:@"waiting" forState:UIControlStateNormal];
-    [_btn setTitle:@"loading" forState:UIControlStateSelected];
-    _btn.selected = NO;
-    
-    
+     [_btn setTitle:@"waiting" forState:UIControlStateNormal];
     
 
 }
 
 
 - (void)btnAction:(UIButton *)btn{
-    _btn.selected = !_btn.selected;
-    if (_btn.selected) {
-        [self.model.task resume];
+    self.loading = !self.loading;
+    if (self.loading) {
+//        [self.model.task resume];
+        //开始下载或者加入队列
+    self.model.downloadWillState = DownloadTaskWillChangeLoading;
+        [_btn setTitle:@"loading" forState:UIControlStateSelected];
     }else{
-        [self.model.task suspend];
+//        [self.model.task suspend];
+    self.model.downloadWillState = DownloadTaskWillChangeSuspend;
+        [_btn setTitle:@"waiting" forState:UIControlStateNormal];
+
     }
-    
+
+    if (self.block) {
+        self.block(self.model);
+    }
 }
 
 
@@ -73,11 +79,17 @@
     
     
     if (model.task.downloadState==DownloadTaskLoading) {
-        model.task.delegate = self;
-        _btn.selected = YES;
+     [_btn setTitle:@"loading" forState:UIControlStateNormal];
+//        model.task.delegate = self;
+//        _btn.selected = YES;
+    }else if (model.task.downloadState==DownloadTaskFinshed){
+        self.progress.progress = 1;
+        [self.btn setTitle:@"finished" forState:UIControlStateNormal];
+    
     }else{
-        _btn.selected = NO;
+//        _btn.selected = NO;
         self.progress.progress = 0;
+        [_btn setTitle:@"waiting" forState:UIControlStateNormal];
 //        model.task.delegate = nil;
 //        self.progress.progress = model.downloadProgress;
 
@@ -89,19 +101,19 @@
 }
 
 
-- (void)changeDownloadProgress:(float)progress andDownloadTask:(DownLoadWithDownLoadTask *)task{
-//    self.model.downloadProgress = progress;
-    if (self.model.task==task){
-        NSLog(@"%ld",(long)self.model.task.tag);
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            self.progress.progress = progress;
-        });
-    }
-    
-//    [self.progress setProgress:progress animated:NO];
-
-
-}
+//- (void)changeDownloadProgress:(float)progress andDownloadTask:(DownLoadWithDownLoadTask *)task{
+////    self.model.downloadProgress = progress;
+//    if (self.model.task==task){
+//        NSLog(@"%ld",(long)self.model.task.tag);
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            self.progress.progress = progress;
+//        });
+//    }
+//    
+////    [self.progress setProgress:progress animated:NO];
+//
+//
+//}
 
 
 - (void)awakeFromNib {

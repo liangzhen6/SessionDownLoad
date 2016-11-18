@@ -12,4 +12,8 @@
 
 @property(nonatomic,strong)DownloadModel * model;
 
+@property(nonatomic,strong)UIProgressView *progress;
+
+@property(nonatomic,copy)void(^block)(DownloadModel *model);
+
 @end

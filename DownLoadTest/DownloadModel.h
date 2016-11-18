@@ -7,13 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+
+typedef NS_ENUM(NSInteger,DownloadTaskWillChangeState) {
+    
+    DownloadTaskWillChangeWating = 0,
+    
+    DownloadTaskWillChangeLoading,
+    
+    DownloadTaskWillChangeCancel,
+    
+    DownloadTaskWillChangeSuspend
+    
+};
+
 @class DownLoadWithDownLoadTask;
 @interface DownloadModel : NSObject
 
 @property(nonatomic,strong)NSString * urlStr;
 @property(nonatomic,strong)DownLoadWithDownLoadTask * task;
 @property(nonatomic,assign)float downloadProgress;
-//@property(nonatomic,assign)DownloadTaskState downloadState;
+
+@property(nonatomic,assign)NSInteger tagNum;
+
+@property(nonatomic,assign)DownloadTaskWillChangeState downloadWillState;
 
 
 @end
