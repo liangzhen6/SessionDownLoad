@@ -1,0 +1,12 @@
+PODS:
+  - LZProgress (0.0.2)
+
+DEPENDENCIES:
+  - LZProgress (~> 0.0.2)
+
+SPEC CHECKSUMS:
+  LZProgress: d5f5fdd6b52d3d8307b6f49310896243c942bca6
+
+PODFILE CHECKSUM: 9f9bd01d1830553a3990deb7ba0eff235a530e7e
+
+COCOAPODS: 1.2.0.beta.1

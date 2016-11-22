@@ -40,6 +40,8 @@ typedef NS_ENUM(NSInteger,DownloadTaskState) {
 
 @property(nonatomic,assign)NSInteger tag;
 
+@property(nonatomic,assign)float progress;
+
 @property(nonatomic,copy)void(^block)(NSData *data,NSString*path);
 
 

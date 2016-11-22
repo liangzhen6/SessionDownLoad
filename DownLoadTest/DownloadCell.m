@@ -9,6 +9,7 @@
 #import "DownloadCell.h"
 #import "DownloadModel.h"
 #import "DownLoadWithDownLoadTask.h"
+#import <LZProgressView.h>
 @interface DownloadCell()
 
 
@@ -34,15 +35,16 @@
 
 
 - (void)initView{
-    self.progress = [[UIProgressView alloc] initWithFrame:CGRectMake(5, 20, Screen_Width-100, 30)];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.progress = [[LZProgressView alloc] initWithFrame:CGRectMake(10, 10, 80, 80)];
 //    self.progress.trackTintColor = [UIColor blackColor];
 //    self.progress.progressViewStyle =
 //    self.progress.progress = 1.0;
     
-    self.progress.progressTintColor=[UIColor redColor];
+//    self.progress.progressTintColor=[UIColor redColor];
     [self.contentView addSubview:self.progress];
     
-    self.btn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.progress.frame)+5, CGRectGetMidY(self.progress.frame)+5, 70, 40)];
+    self.btn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.progress.frame)+100, CGRectGetMidY(self.progress.frame)+5, 70, 40)];
     
     _btn.backgroundColor = [UIColor redColor];
     [_btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -82,6 +84,7 @@
      [_btn setTitle:@"loading" forState:UIControlStateNormal];
 //        model.task.delegate = self;
 //        _btn.selected = YES;
+        self.progress.progress = model.task.progress;
     }else if (model.task.downloadState==DownloadTaskFinshed){
         self.progress.progress = 1;
         [self.btn setTitle:@"finished" forState:UIControlStateNormal];

@@ -104,7 +104,7 @@
 //    NSLog(@"%@",session);
 
     float progress = 1.0 * totalBytesWritten / totalBytesExpectedToWrite;
-    
+    self.progress = progress;
     if ([self.delegate respondsToSelector:@selector(changeDownloadProgress:andDownloadTask:)]) {
         [self.delegate changeDownloadProgress:progress andDownloadTask:self];
     }

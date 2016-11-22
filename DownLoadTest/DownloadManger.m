@@ -10,6 +10,7 @@
 #import "DownLoadWithDownLoadTask.h"
 #import "DownloadCell.h"
 #import "DownloadModel.h"
+#import <LZProgressView.h>
 
 
 @interface DownloadManger()<DownLoadWithDownLoadTaskDelegate>
